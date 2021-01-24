@@ -15,9 +15,6 @@ app.use(express.static("public"))
 app.get("/",(req,res) => {
   res.send("index")
 });
-app.get("/hi",(req,res) => {
-  res.send("Hello : "+port)
-});
 io.on("connection",socket => {
   console.log(socket.id+" Connect");
   socket.on("disconnect",()=> {

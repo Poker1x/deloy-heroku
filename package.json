@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "vercel-start": "node .",
     "dev": "nodemon index.js -p $PORT",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,9 +12,13 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^3.0.5"
+    "socket.io": "^3.0.5",
+    "vercel-node-server": "^2.2.1"
   },
   "engines": {
     "node": "14.x"
+  },
+  "devDependencies": {
+    "@vercel/node": "^1.9.0"
   }
 }
