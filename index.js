@@ -7,7 +7,11 @@ const app = express();
 const server = http.createServer(app);
 const port = process.env.PORT || 4000
 server.listen(port,() => console.log("Server Runing ..."));
-const io = socketio(server);
+const io = socketio(server,{
+  cors : {
+    host : "*"
+  }
+});
 
 const find = [];
 
@@ -17,10 +21,13 @@ app.get("/",(req,res) => {
 });
 io.on("connection",socket => {
   console.log(socket.id+" Connect");
+  
   socket.on("disconnect",()=> {
     console.log(socket.id+" Disconnect")
     data.user.remove(socket.id)
     io.sockets.emit("dis",socket.id)
+    io.sockets.emit("online",data.user.get())
+  
   })
   socket.on("log",(mes,cb) => {
     if(data.user.is(mes)){
@@ -28,6 +35,8 @@ io.on("connection",socket => {
     } else {
       cb(false);
       data.user.add(socket.id,mes);
+      io.sockets.emit("online",data.user.get())
+    
     }
   });
   
